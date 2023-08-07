@@ -45,3 +45,25 @@ export async function getUrlById(req, res) {
     }
 
 }
+
+export async function openUrl(req, res) {
+
+    const shortUrl = req.params.shortUrl;
+
+    try {
+
+        const updateCount = await db.query(`UPDATE urls
+            SET "visitCount" = "visitCount" + 1
+            WHERE "shortUrl"='${shortUrl}'
+            RETURNING "url"`);
+        if (updateCount.rowCount === 0) { return res.sendStatus(404) };
+
+        res.redirect(Object.values(updateCount.rows[0])[0]);
+
+    } catch (err) {
+
+        res.status(500).send(err.message);
+
+    }
+
+}
