@@ -53,24 +53,24 @@ ALTER SEQUENCE public."sessions_sessionId_seq" OWNED BY public.sessions."session
 
 
 --
--- Name: shorts; Type: TABLE; Schema: public; Owner: -
+-- Name: urls; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.shorts (
-    "shortId" integer NOT NULL,
+CREATE TABLE public.urls (
+    "urlId" integer NOT NULL,
     "userId" integer NOT NULL,
     url text NOT NULL,
     "shortUrl" text NOT NULL,
-    "visitCount" integer NOT NULL,
+    "visitCount" integer DEFAULT 0 NOT NULL,
     "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
 --
--- Name: shorts_shortId_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: urls_urlId_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public."shorts_shortId_seq"
+CREATE SEQUENCE public."urls_urlId_seq"
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -80,10 +80,10 @@ CREATE SEQUENCE public."shorts_shortId_seq"
 
 
 --
--- Name: shorts_shortId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: urls_urlId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public."shorts_shortId_seq" OWNED BY public.shorts."shortId";
+ALTER SEQUENCE public."urls_urlId_seq" OWNED BY public.urls."urlId";
 
 
 --
@@ -127,10 +127,10 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN "sessionId" SET DEFAULT nextval('p
 
 
 --
--- Name: shorts shortId; Type: DEFAULT; Schema: public; Owner: -
+-- Name: urls urlId; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.shorts ALTER COLUMN "shortId" SET DEFAULT nextval('public."shorts_shortId_seq"'::regclass);
+ALTER TABLE ONLY public.urls ALTER COLUMN "urlId" SET DEFAULT nextval('public."urls_urlId_seq"'::regclass);
 
 
 --
@@ -147,7 +147,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN "userId" SET DEFAULT nextval('public.
 
 
 --
--- Data for Name: shorts; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
@@ -166,10 +166,10 @@ SELECT pg_catalog.setval('public."sessions_sessionId_seq"', 1, false);
 
 
 --
--- Name: shorts_shortId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: urls_urlId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."shorts_shortId_seq"', 1, false);
+SELECT pg_catalog.setval('public."urls_urlId_seq"', 1, false);
 
 
 --
@@ -196,19 +196,19 @@ ALTER TABLE ONLY public.sessions
 
 
 --
--- Name: shorts shorts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: urls urls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.shorts
-    ADD CONSTRAINT shorts_pkey PRIMARY KEY ("shortId");
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT urls_pkey PRIMARY KEY ("urlId");
 
 
 --
--- Name: shorts shorts_shortUrl_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: urls urls_shortUrl_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.shorts
-    ADD CONSTRAINT "shorts_shortUrl_key" UNIQUE ("shortUrl");
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT "urls_shortUrl_key" UNIQUE ("shortUrl");
 
 
 --
@@ -236,11 +236,11 @@ ALTER TABLE ONLY public.sessions
 
 
 --
--- Name: shorts shorts_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: urls urls_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.shorts
-    ADD CONSTRAINT "shorts_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users("userId");
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT "urls_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users("userId");
 
 
 --
