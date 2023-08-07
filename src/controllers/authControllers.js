@@ -14,7 +14,6 @@ export async function signUp(req, res) {
 
         // password encryption
         const passwordHash = bcrypt.hashSync(password, 10);
-        console.log(passwordHash);
 
         // create user in db
         await db.query(`INSERT INTO users ("name", "email", "password") VALUES ($1, $2, $3)`, [name, email, passwordHash]);
