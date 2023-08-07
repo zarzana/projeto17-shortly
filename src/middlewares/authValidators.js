@@ -1,4 +1,4 @@
-import { signUpSchema, signInSchema } from "../schemas/userSchemas.js";
+import { signUpSchema, signInSchema } from "../schemas/authSchemas.js";
 
 export function signUpValidator(req, res, next) {
 
