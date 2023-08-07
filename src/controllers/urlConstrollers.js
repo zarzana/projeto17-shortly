@@ -36,7 +36,8 @@ export async function getUrlById(req, res) {
         res.status(200).send({
             'id': urlWithId.rows[0].urlId,
             'shortUrl': urlWithId.rows[0].shortUrl,
-            'url': urlWithId.rows[0].url });
+            'url': urlWithId.rows[0].url
+        });
 
     } catch (err) {
 
@@ -76,6 +77,7 @@ export async function deleteUrl(req, res) {
     try {
 
         const urls = await db.query(`SELECT * FROM urls WHERE "urlId"='${urlId}'`);
+        if (urls.rows.length === 0) { return res.sendStatus(404) };
         const url = urls.rows[0];
 
         if (url.userId != user.userId) { return res.sendStatus(401) };
