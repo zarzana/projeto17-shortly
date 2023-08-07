@@ -11,7 +11,7 @@ export async function tokenAuthenticator(req, res, next) {
     const sessionUser = await db.query(`SELECT users."userId", users.email, users.name FROM sessions
         JOIN users ON sessions."userId" = users."userId"
         WHERE "token" = '${token}'`);
-    if (sessionUser.rows.lenght = 0) { return res.sendStatus(401) };
+    if (Object.keys(sessionUser.rows).length == 0) { return res.sendStatus(401) };
 
     // save to locals
     res.locals.user = sessionUser.rows[0];
